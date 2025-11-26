@@ -48,6 +48,6 @@ mod tests {
     #[test]
     fn test_part2() {
         let input = "";
-        assert_eq!(part2(input), 0);
+        assert_eq!(part2(input), 20412333);
     }
 }

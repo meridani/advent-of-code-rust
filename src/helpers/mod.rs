@@ -6,6 +6,7 @@ use std::fs;
 ///
 /// # Examples
 /// ```
+/// use advent_of_code_rust::helpers::read_input;
 /// let input = read_input(2015, 1);
 /// ```
 pub fn read_input(year: u16, day: u8) -> String {

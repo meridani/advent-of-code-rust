@@ -1,5 +1,4 @@
 #![allow(unused)]
-use std::i32::MAX;
 
 use crate::helpers;
 use itertools::{Combinations, Itertools};
@@ -11,7 +10,7 @@ pub fn part1(input: &str) -> i32 {
     for b in boxes {
         let n: Vec<i32> = b.split('x').map(|x| x.parse::<i32>().unwrap()).collect();
         let a = n.into_iter().combinations(2);
-        let mut min = MAX;
+        let mut min = i32::MAX;
         for sides in a {
             let area = sides[0] * sides[1];
             if area < min {
@@ -28,7 +27,6 @@ pub fn part2(input: &str) -> i32 {
     input
         .lines()
         .map(|lines| lines.split("x").map(|x| x.parse::<i32>().unwrap()))
-        .into_iter()
         .map(|sides| sides.sorted().collect())
         .fold(0, |acc, sides: Vec<i32>| {
             acc + sides[0] * 2 + sides[1] * 2 + sides[0] * sides[1] * sides[2]
