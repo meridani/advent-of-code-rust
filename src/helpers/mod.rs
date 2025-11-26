@@ -16,5 +16,5 @@ pub fn read_input(year: u16, day: u8) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    
 }
