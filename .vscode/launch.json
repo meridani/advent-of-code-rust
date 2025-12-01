@@ -18,6 +18,14 @@
             "env": {
                 "RUST_BACKTRACE": "1"
             }
+        },
+        {
+            "name": "Linux Launch",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceRoot}/target/debug/advent-of-code-rust",
+            "args": [],
+            "cwd": "${workspaceRoot}",
         }
     ]
 }
