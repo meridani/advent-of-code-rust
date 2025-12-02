@@ -7,6 +7,9 @@ fn check_valid(id: &str) -> bool {
     if id.starts_with('0') {
         return false;
     }
+    if id.len() % 2 == 1 {
+        return true;
+    }
 
     let mid = id.len() / 2;
     let (a, b) = id.split_at(mid);
@@ -17,13 +20,16 @@ fn check_valid(id: &str) -> bool {
     true
 }
 fn check_valid2(id: &str) -> bool {
-    for i in 1..id.len() / 2 {
-        let sub = &id[0..=i];
-        dbg!(sub);
-        match id.match_indices(sub).try_len() {
-            Ok(x) if x > 1 => return false,
-            Ok(_) => (),
-            Err(_) => (),
+    for i in 1..=id.len() / 2 {
+        let equal = id
+            .as_bytes()
+            .chunks(i)
+            .map(|buf| unsafe { str::from_utf8_unchecked(buf) })
+            .collect::<Vec<&str>>()
+            .iter()
+            .all_equal();
+        if equal {
+            return false;
         }
     }
     true
@@ -91,12 +97,16 @@ mod tests {
     fn test_check_valid2() {
         assert_eq!(false, check_valid2(&11.to_string()));
         assert_eq!(false, check_valid2(&22.to_string()));
+        assert_eq!(false, check_valid2(&99.to_string()));
+        assert_eq!(false, check_valid2(&111.to_string()));
         assert_eq!(false, check_valid2(&999.to_string()));
-        assert_eq!(false, check_valid2(&2121212121.to_string()));
         assert_eq!(false, check_valid2(&1188511885.to_string()));
         assert_eq!(false, check_valid2(&222222.to_string()));
         assert_eq!(false, check_valid2(&446446.to_string()));
+        assert_eq!(false, check_valid2(&38593859.to_string()));
+        assert_eq!(false, check_valid2(&565656.to_string()));
         assert_eq!(false, check_valid2(&824824824.to_string()));
+        assert_eq!(false, check_valid2(&2121212121.to_string()));
     }
 
     #[test]
