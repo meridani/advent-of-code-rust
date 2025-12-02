@@ -1,7 +1,7 @@
 #![allow(unused)]
 use itertools::Itertools;
 pub fn get_input() -> &'static str {
-    include_str!("../../inputs/1.in")
+    include_str!("../../inputs/01.in")
 }
 pub fn part1(input: &str) -> i32 {
     let mut safe = 50;

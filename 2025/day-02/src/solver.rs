@@ -1,7 +1,7 @@
 #![allow(unused)]
 use itertools::Itertools;
 pub fn get_input() -> &'static str {
-    include_str!("../../inputs/2.in")
+    include_str!("../../inputs/02.in")
 }
 
 fn check_valid(id: &str) -> bool {
