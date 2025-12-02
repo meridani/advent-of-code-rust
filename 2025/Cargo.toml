@@ -1,0 +1,22 @@
+[workspace]
+members = ["day*"]
+exclude = ["day-template"]
+resolver = "3"
+
+[workspace.dependencies]
+divan = "0.1.7"
+itertools = "0.14.0"
+md5 = "0.8.0"
+rayon = "1.11.0"
+regex = "1.10"
+rstest = "0.26.1"
+tracing = "0.1.41"
+
+[workspace.dependencies.test-log]
+version = "0.2.13"
+features = ["trace"]
+default-features = false
+
+[workspace.dependencies.tracing-subscriber]
+version = "0.3.18"
+features = ["fmt", "env-filter"]

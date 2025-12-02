@@ -1,0 +1,7 @@
+set dotenv-load
+
+create day:
+    cargo generate --path ./day-template --name day{{day}} -d day={{day}}
+
+run day:
+    cargo run --bin day{{day}}

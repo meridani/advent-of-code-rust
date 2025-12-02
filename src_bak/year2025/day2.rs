@@ -4,16 +4,8 @@ use itertools::Itertools;
 use crate::helpers;
 
 fn check_valid(id: &str) -> bool {
-    if id.starts_with('0') {
-        return false;
-    }
-    if id.len() % 2 == 1 {
-        return true;
-    }
-
     let mid = id.len() / 2;
-    let (a, b) = id.split_at(mid);
-    if a == b {
+    if &id[..mid] == &id[mid..] {
         return false;
     }
 
@@ -35,15 +27,21 @@ fn check_valid2(id: &str) -> bool {
     true
 }
 
-pub fn part1(input: &str) -> i128 {
-    let mut invalids: i128 = 0;
+pub fn part1(input: &str) -> u64 {
+    let mut invalids: u64 = 0;
     let ranges: Vec<_> = input
         .split(',')
-        .map(|range| range.trim().split('-').collect::<Vec<_>>())
+        .map(|range| {
+            range
+                .trim()
+                .split('-')
+                .map(|x| x.parse::<u64>().unwrap())
+                .collect::<Vec<_>>()
+        })
         .collect();
     for pair in ranges {
-        let start = pair[0].parse::<i128>().unwrap();
-        let end = pair[1].parse::<i128>().unwrap();
+        let start = pair[0];
+        let end = pair[1];
 
         for i in start..=end {
             if !check_valid(&i.to_string()) {
@@ -54,15 +52,21 @@ pub fn part1(input: &str) -> i128 {
     invalids
 }
 
-pub fn part2(input: &str) -> i128 {
-    let mut invalids: i128 = 0;
+pub fn part2(input: &str) -> u64 {
+    let mut invalids: u64 = 0;
     let ranges: Vec<_> = input
         .split(',')
-        .map(|range| range.trim().split('-').collect::<Vec<_>>())
+        .map(|range| {
+            range
+                .trim()
+                .split('-')
+                .map(|x| x.parse::<u64>().unwrap())
+                .collect::<Vec<_>>()
+        })
         .collect();
     for pair in ranges {
-        let start = pair[0].parse::<i128>().unwrap();
-        let end = pair[1].parse::<i128>().unwrap();
+        let start = pair[0];
+        let end = pair[1];
 
         for i in start..=end {
             if !check_valid2(&i.to_string()) {
@@ -117,7 +121,7 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let input = "";
-        assert_eq!(part2(input), 0);
+        let input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
+        assert_eq!(part2(input), 4174379265);
     }
 }
