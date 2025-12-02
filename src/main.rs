@@ -32,4 +32,5 @@ fn main() {
     // year2015::day23::solve();
     // year2015::day24::solve();
     year2025::day01::solve();
+    year2025::day2::solve();
 }
