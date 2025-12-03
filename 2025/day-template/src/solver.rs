@@ -1,4 +1,5 @@
 #![allow(unused)]
+use itertools::Itertools;
 
 pub fn get_input() -> &'static str {
     include_str!("../../inputs/{{day}}.in")
