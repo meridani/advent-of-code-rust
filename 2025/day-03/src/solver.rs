@@ -1,35 +1,19 @@
 #![allow(unused)]
 use itertools::Itertools;
+use tracing::info;
 
 pub fn get_input() -> &'static str {
     include_str!("../../inputs/03.in")
 }
-pub fn part1(input: &str) -> u32 {
-    let mut total: u32 = 0;
-    for line in input.lines() {
-        let jolts = line.as_bytes().iter().map(|x| *x - 48).collect::<Vec<u8>>();
-        let mut max = 0;
-        for i in 0..jolts.len() - 1 {
-            for j in i + 1..jolts.len() {
-                let num: u32 = (jolts[i] * 10 + jolts[j]).try_into().unwrap();
-                if num > max {
-                    max = num;
-                }
-            }
-        }
-        total += max;
-    }
-    total
-}
 
-pub fn part2(input: &str) -> u128 {
+fn find_n_largest(input: &str, n: usize) -> u128 {
     let mut total: u128 = input
         .lines()
         .map(|bank| {
             let mut batteries: Vec<char> = vec![];
             let mut biggest_index = 0;
-            for i in 0..12 {
-                let (index, biggest) = &bank[biggest_index..(bank.len() - 11 + i)]
+            for i in 0..n {
+                let (index, biggest) = &bank[biggest_index..(bank.len() - (n - 1) + i)]
                     .chars()
                     .enumerate()
                     .max_set_by_key(|(_index, battery)| *battery)
@@ -48,6 +32,32 @@ pub fn part2(input: &str) -> u128 {
         })
         .sum();
     total
+}
+
+pub fn part1(input: &str) -> u128 {
+    find_n_largest(input, 2)
+}
+
+pub fn part1_old(input: &str) -> u32 {
+    let mut total: u32 = 0;
+    for line in input.lines() {
+        let jolts = line.as_bytes().iter().map(|x| *x - 48).collect::<Vec<u8>>();
+        let mut max = 0;
+        for i in 0..jolts.len() - 1 {
+            for j in i + 1..jolts.len() {
+                let num: u32 = (jolts[i] * 10 + jolts[j]).try_into().unwrap();
+                if num > max {
+                    max = num;
+                }
+            }
+        }
+        total += max;
+    }
+    total
+}
+
+pub fn part2(input: &str) -> u128 {
+    find_n_largest(input, 12)
 }
 
 #[cfg(test)]
