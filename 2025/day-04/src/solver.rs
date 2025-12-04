@@ -29,7 +29,6 @@ pub fn part1(input: &str) -> u32 {
                     sum += 1;
                 }
             }
-            dbg!(format!("{} {}", &p, sum));
             if sum < 4 { acc + 1 } else { acc }
         } else {
             acc
@@ -52,28 +51,34 @@ pub fn part2(input: &str) -> u64 {
         })
     });
     loop {
-        let mut to_remove = vec![];
-        grid.iter().for_each(|(p, c)| {
-            let mut sum = 0;
-            if *c == '@' {
-                for n in p.neighbours() {
-                    let roll = grid.get(&n).or_else(|| Some(&'.')).unwrap();
-                    if *roll == '@' {
-                        sum += 1;
+        let mut count = 0;
+        let newgrid: HashMap<Point, char> = grid
+            .iter()
+            .map(|(p, c)| {
+                let mut sum = 0;
+                if *c == '@' {
+                    for n in p.neighbours() {
+                        let roll = grid.get(&n).or_else(|| Some(&'.')).unwrap();
+                        if *roll == '@' {
+                            sum += 1;
+                        }
                     }
+                    if sum < 4 {
+                        count += 1;
+                        total += 1;
+                        (Point { x: p.x, y: p.y }, '.')
+                    } else {
+                        (Point { x: p.x, y: p.y }, *c)
+                    }
+                } else {
+                    (Point { x: p.x, y: p.y }, *c)
                 }
-                dbg!(format!("{} {}", &p, sum));
-                if sum < 4 {
-                    to_remove.push(p);
-                }
-            }
-        });
-        if to_remove.len() == 0 {
+            })
+            .collect();
+        if count == 0 {
             break;
         }
-        for point in to_remove {
-            grid.remove(point);
-        }
+        grid = newgrid;
     }
     total
 }
@@ -128,7 +133,16 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let input = "";
-        assert_eq!(part2(input), 0);
+        let input = "..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.";
+        assert_eq!(part2(input), 43);
     }
 }
