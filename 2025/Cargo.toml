@@ -1,8 +1,5 @@
 [workspace]
-members = [
-    "day-*",
-    "day-03",
-]
+members = ["day-*"]
 exclude = ["day-template"]
 default-members = ["day-??"]
 resolver = "3"
@@ -23,7 +20,4 @@ default-features = false
 
 [workspace.dependencies.tracing-subscriber]
 version = "0.3.18"
-features = [
-    "fmt",
-    "env-filter",
-]
+features = ["fmt", "env-filter"]

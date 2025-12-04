@@ -45,7 +45,7 @@ pub fn part1_old(input: &str) -> u32 {
         let mut max = 0;
         for i in 0..jolts.len() - 1 {
             for j in i + 1..jolts.len() {
-                let num: u32 = (jolts[i] * 10 + jolts[j]).try_into().unwrap();
+                let num: u32 = (jolts[i] * 10 + jolts[j]).into();
                 if num > max {
                     max = num;
                 }
