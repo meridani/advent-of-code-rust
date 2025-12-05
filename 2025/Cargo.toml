@@ -1,5 +1,5 @@
 [workspace]
-members = ["day-*"]
+members = ["day-*", "day-05"]
 exclude = ["day-template"]
 default-members = ["day-??"]
 resolver = "3"
