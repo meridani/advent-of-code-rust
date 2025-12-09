@@ -14,9 +14,6 @@ struct Point {
 
 impl Point {
     fn area(&self, other: &Point) -> u64 {
-        // let a = (self.x.max(other.x) - self.x.min(other.x)) + 1;
-        // let b = (self.y.max(other.y) - self.y.min(other.y)) + 1;
-        // (a * b) as u64
         (self.x.abs_diff(other.x) + 1) * (self.y.abs_diff(other.y) + 1)
     }
 }
@@ -54,10 +51,7 @@ pub fn part2(input: &str) -> u64 {
     let max_rect = points
         .iter()
         .tuple_combinations()
-        .map(|(a, b)| {
-            let area = a.area(b);
-            (a, b, area)
-        })
+        .map(|(a, b)| (a, b, a.area(b)))
         .sorted_by_key(|v| v.2)
         .rev()
         .find(|(a, b, area)| {
@@ -70,13 +64,6 @@ pub fn part2(input: &str) -> u64 {
             })
         });
     max_rect.unwrap().2
-}
-
-fn inside(p1: Point, p2: Point, target: Point) -> bool {
-    p1.x.min(p2.x) < target.x
-        && target.x < p1.x.max(p2.x)
-        && p1.y.min(p2.y) < target.y
-        && target.y < p1.y.max(p2.y)
 }
 
 #[cfg(test)]
