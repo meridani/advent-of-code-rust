@@ -19,12 +19,12 @@ impl Point {
 }
 
 pub fn part1(input: &str) -> u64 {
-    let points = input.lines().map(|line| {
-        let p: Vec<i64> = line.trim().split(',').map(|c| c.parse().unwrap()).collect();
-        Point { x: p[0], y: p[1] }
-    });
-
-    points
+    input
+        .lines()
+        .map(|line| {
+            let p: Vec<i64> = line.trim().split(',').map(|c| c.parse().unwrap()).collect();
+            Point { x: p[0], y: p[1] }
+        })
         .combinations(2)
         .map(|a| a[0].area(&a[1]))
         .max()

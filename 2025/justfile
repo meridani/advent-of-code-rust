@@ -8,3 +8,10 @@ run day:
 
 get-input day:
     ./scripts/get-aoc-input.rs --day {{day}} --current-working-directory {{justfile_directory()}}
+
+lint day:
+    cargo clippy -p day-{{day}}
+bench-all:
+    cargo bench -q > benchmarks.txt
+bench day part:
+    cargo bench --bench day-{{day}}-bench {{part}}
