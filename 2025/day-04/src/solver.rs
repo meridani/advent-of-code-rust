@@ -9,7 +9,7 @@ pub fn get_input() -> &'static str {
 }
 pub fn part1(input: &str) -> u32 {
     let mut grid = HashMap::new();
-    let a = input.lines().enumerate().for_each(|(y, line)| {
+    input.lines().enumerate().for_each(|(y, line)| {
         line.chars().enumerate().for_each(|(x, c)| {
             grid.insert(
                 Point {
@@ -24,7 +24,7 @@ pub fn part1(input: &str) -> u32 {
         let mut sum = 0;
         if *c == '@' {
             for n in p.neighbours() {
-                let roll = grid.get(&n).or_else(|| Some(&'.')).unwrap();
+                let roll = grid.get(&n).unwrap_or(&'.');
                 if *roll == '@' {
                     sum += 1;
                 }
@@ -39,7 +39,7 @@ pub fn part1(input: &str) -> u32 {
 pub fn part2(input: &str) -> u64 {
     let mut grid = HashMap::new();
     let mut total: u64 = 0;
-    let a = input.lines().enumerate().for_each(|(y, line)| {
+    input.lines().enumerate().for_each(|(y, line)| {
         line.chars().enumerate().for_each(|(x, c)| {
             grid.insert(
                 Point {
@@ -58,7 +58,7 @@ pub fn part2(input: &str) -> u64 {
                 let mut sum = 0;
                 if *c == '@' {
                     for n in p.neighbours() {
-                        let roll = grid.get(&n).or_else(|| Some(&'.')).unwrap();
+                        let roll = grid.get(&n).unwrap_or(&'.');
                         if *roll == '@' {
                             sum += 1;
                         }

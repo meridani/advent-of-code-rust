@@ -7,12 +7,11 @@ pub fn get_input() -> &'static str {
 pub fn part1(input: &str) -> u64 {
     let problem: Vec<&str> = input.lines().collect();
     let problem_len = problem.len();
-    let operations: Vec<&str> = problem[problem_len - 1].trim().split_whitespace().collect();
+    let operations: Vec<&str> = problem[problem_len - 1].split_whitespace().collect();
     let nums: Vec<Vec<u64>> = problem[0..problem_len - 1]
         .iter()
         .map(|line| {
-            line.trim()
-                .split_whitespace()
+            line.split_whitespace()
                 .map(|x| x.parse().unwrap())
                 .collect()
         })
@@ -21,8 +20,8 @@ pub fn part1(input: &str) -> u64 {
         .into_iter()
         .enumerate()
         .fold(0, |acc, (i, op)| match op {
-            "+" => acc + nums.iter().map(|x| x[i as usize]).sum::<u64>(),
-            "*" => acc + nums.iter().map(|x| x[i as usize]).product::<u64>(),
+            "+" => acc + nums.iter().map(|x| x[i]).sum::<u64>(),
+            "*" => acc + nums.iter().map(|x| x[i]).product::<u64>(),
             _ => acc,
         })
 }
@@ -30,12 +29,9 @@ pub fn part1(input: &str) -> u64 {
 pub fn part2(input: &str) -> u64 {
     let problem: Vec<&str> = input.lines().collect();
     let problem_len = problem.len();
-    let operations: Vec<&str> = problem[problem_len - 1].trim().split_whitespace().collect();
+    let operations: Vec<&str> = problem[problem_len - 1].split_whitespace().collect();
     let nums = problem[0..problem_len - 1].iter();
-    for n in nums {
-        println!("{n:?}");
-    }
-    3263827
+    0
 }
 
 #[cfg(test)]

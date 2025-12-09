@@ -20,8 +20,8 @@ pub fn part1(input: &str) -> u32 {
         line.iter().enumerate().for_each(|(i, c)| {
             if *c == '^' && tachyon.contains(&i) {
                 splits += 1;
-                tachyon.insert((i - 1));
-                tachyon.insert((i + 1));
+                tachyon.insert(i - 1);
+                tachyon.insert(i + 1);
                 tachyon.remove(&i);
             }
         })
@@ -41,13 +41,13 @@ pub fn part2(input: &str) -> u64 {
             if *c == '^' && tachyon.contains_key(&i) {
                 let count = tachyon.get(&i).cloned().unwrap();
                 tachyon
-                    .entry((i - 1))
+                    .entry(i - 1)
                     .and_modify(|val| {
                         *val += count;
                     })
                     .or_insert(count);
                 tachyon
-                    .entry((i + 1))
+                    .entry(i + 1)
                     .and_modify(|val| {
                         *val += count;
                     })
